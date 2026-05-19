@@ -23,35 +23,38 @@ export async function renderPDF(html: string): Promise<Buffer> {
   let browser = null
 
   try {
-    // Use @sparticuz/chromium-min for Vercel serverless compatibility
-    const chromium = await import('@sparticuz/chromium-min')
     const puppeteer = await import('puppeteer-core')
+    const isServerless = !!(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME)
 
-    // In production (Vercel), chromium.executablePath() gives the right binary
-    // In dev, fall back to locally installed Chrome
     let executablePath: string
-    if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    let launchArgs: string[]
+
+    if (isServerless) {
+      const chromium = await import('@sparticuz/chromium-min')
       executablePath = await chromium.default.executablePath(
         'https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar'
       )
+      launchArgs = [...(chromium.default.args || []), '--no-sandbox', '--disable-setuid-sandbox']
     } else {
-      // Local dev: use system Chrome
+      // Local dev: use system Chrome — no serverless flags
       executablePath =
         process.platform === 'darwin'
           ? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
           : process.platform === 'win32'
           ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
           : '/usr/bin/google-chrome'
+      launchArgs = ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
     }
 
     browser = await puppeteer.default.launch({
-      args: [...(chromium.default.args || []), '--no-sandbox', '--disable-setuid-sandbox'],
+      args: launchArgs,
       executablePath,
       headless: true,
     })
 
     const page = await browser.newPage()
-    await page.setContent(html, { waitUntil: 'load' })
+    // domcontentloaded is fast and correct for self-contained HTML (no external resources)
+    await page.setContent(html, { waitUntil: 'domcontentloaded', timeout: 10000 })
 
     const pdfBuffer = await page.pdf({
       format: 'A4',

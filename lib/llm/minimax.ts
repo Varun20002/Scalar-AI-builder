@@ -46,17 +46,17 @@ export async function chatJSON<T>(
   messages: ChatMessage[],
   options: JSONModeOptions = {}
 ): Promise<T> {
-  const { model = 'MiniMax-Text-01', temperature = 0.3, maxRetries = 2 } = options
+  const { model = 'MiniMax-M2.5', temperature = 0.3, maxRetries = 2 } = options
   const client = getClient()
 
   let lastError: Error | null = null
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
+      // MiniMax does not support response_format — rely on extractJSON parser
       const response = await client.chat.completions.create({
         model,
         messages,
         temperature,
-        response_format: { type: 'json_object' },
       })
 
       const content = response.choices[0]?.message?.content
@@ -77,7 +77,7 @@ export async function chatText(
   messages: ChatMessage[],
   options: JSONModeOptions = {}
 ): Promise<string> {
-  const { model = 'MiniMax-Text-01', temperature = 0.5, maxRetries = 2 } = options
+  const { model = 'MiniMax-M2.5', temperature = 0.5, maxRetries = 2 } = options
   const client = getClient()
 
   let lastError: Error | null = null

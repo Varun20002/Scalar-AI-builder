@@ -1,7 +1,7 @@
 description: "Scaler BDA Agent — nudge and PDF content evals"
 
 providers:
-  - id: openai:chat:MiniMax-Text-01
+  - id: openai:chat:MiniMax-M2.5
     config:
       apiBaseUrl: https://api.minimaxi.chat/v1
       apiKeyEnvar: MINIMAX_API_KEY
