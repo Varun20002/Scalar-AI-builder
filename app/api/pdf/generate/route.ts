@@ -101,6 +101,7 @@ export async function POST(req: NextRequest) {
       .insert({
         lead_id,
         sections_json: pdfContent.sections,
+        content_json: pdfContent,
         cover_message: coverMessage,
         html,
         pdf_url: pdfUrl,

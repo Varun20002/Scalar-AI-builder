@@ -25,12 +25,13 @@ export async function PATCH(req: NextRequest) {
 
     const { data: lead } = await supabase
       .from('leads')
-      .select('bda_phone')
+      .select('bda_phone, name')
       .eq('id', draft.lead_id)
       .single()
 
     let sections = draft.sections_json as PDFSection[]
     let updatedCoverMessage = draft.cover_message
+    const persistedContent = (draft.content_json ?? null) as PDFContent | null
 
     // Update cover message if provided
     if (cover_message !== undefined) {
@@ -61,12 +62,27 @@ export async function PATCH(req: NextRequest) {
       }
     }
 
-    // Re-render PDF with updated sections
-    const pdfContentPartial: PDFContent = {
-      ...(draft as unknown as PDFContent),
-      sections,
-      bda_phone: (lead?.bda_phone as string) ?? '',
-    }
+    // Re-render PDF with updated sections.
+    // Prefer the persisted PDFContent (content_json). Fall back to a minimal
+    // reconstruction for legacy drafts that pre-date the content_json column.
+    const pdfContentPartial: PDFContent = persistedContent
+      ? {
+          ...persistedContent,
+          sections,
+          bda_phone: (lead?.bda_phone as string) ?? persistedContent.bda_phone ?? '',
+          lead_name: persistedContent.lead_name || (lead?.name as string) || '',
+          persona_type: (draft.persona_type as PDFContent['persona_type']) ?? persistedContent.persona_type,
+        }
+      : {
+          hero_headline: '',
+          hero_subheadline: '',
+          intro_paragraph: '',
+          closing_cta: '',
+          persona_type: (draft.persona_type as PDFContent['persona_type']) ?? 'engineer',
+          lead_name: (lead?.name as string) ?? '',
+          bda_phone: (lead?.bda_phone as string) ?? '',
+          sections,
+        }
     const html = renderHTML(pdfContentPartial)
     const pdfBuffer = await renderPDF(html)
     const fileName = `${draft.lead_id}-${Date.now()}-edit.pdf`
@@ -77,6 +93,7 @@ export async function PATCH(req: NextRequest) {
       .from('pdf_drafts')
       .update({
         sections_json: sections,
+        content_json: pdfContentPartial,
         cover_message: updatedCoverMessage,
         html,
         pdf_url: pdfUrl,
@@ -88,14 +105,7 @@ export async function PATCH(req: NextRequest) {
 
     if (updateError) return NextResponse.json({ error: updateError.message }, { status: 500 })
 
-    return NextResponse.json({
-      draft: {
-        id: updated.id,
-        pdf_url: pdfUrl,
-        cover_message: updatedCoverMessage,
-        sections,
-      },
-    })
+    return NextResponse.json({ draft: updated })
   } catch (err) {
     console.error('Edit error:', err)
     return NextResponse.json({ error: String(err) }, { status: 500 })
