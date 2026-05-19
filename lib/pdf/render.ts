@@ -53,9 +53,9 @@ export async function renderPDF(html: string): Promise<Buffer> {
     })
 
     const page = await browser.newPage()
-    // networkidle0 ensures Google Fonts (Fraunces + Plus Jakarta Sans) finish loading
-    // before the PDF is captured. Timeout is generous to allow font CDN in serverless.
-    await page.setContent(html, { waitUntil: 'networkidle0', timeout: 30000 })
+    await page.setContent(html, { waitUntil: 'load', timeout: 30000 })
+    // Ensure Google Fonts (Fraunces + Plus Jakarta Sans) finish loading before PDF capture.
+    await page.evaluate(() => (document as Document & { fonts: { ready: Promise<unknown> } }).fonts.ready)
 
     const pdfBuffer = await page.pdf({
       format: 'A4',
