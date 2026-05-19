@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
@@ -177,15 +177,15 @@ export default function ApprovalPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <Loader2 className="w-6 h-6 text-purple-400 animate-spin" />
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-6 h-6 text-primary animate-spin" />
       </div>
     )
   }
 
   if (!draft) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-slate-400">
+      <div className="min-h-screen bg-background flex items-center justify-center text-muted-foreground">
         Draft not found
       </div>
     )
@@ -194,23 +194,23 @@ export default function ApprovalPage() {
   const sections = (draft.sections_json || []) as PDFSection[]
 
   return (
-    <div className="min-h-screen bg-slate-950">
-      {/* Header */}
-      <div className="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-10">
+    <div className="min-h-screen bg-background">
+      {/* Floating header */}
+      <div className="border-b border-border bg-background/90 backdrop-blur sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center gap-3">
-          <Button variant="ghost" size="sm" onClick={() => router.push(`/lead/${draft.lead_id}`)} className="text-slate-400 hover:text-white">
+          <Button variant="ghost" size="icon-sm" onClick={() => router.push(`/lead/${draft.lead_id}`)} className="text-muted-foreground hover:text-foreground">
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <div className="flex-1">
-            <h1 className="text-white font-semibold">Review PDF</h1>
-            <p className="text-slate-500 text-xs">
+            <h1 className="text-foreground font-semibold" style={{ fontFamily: 'var(--font-heading)' }}>Review PDF</h1>
+            <p className="text-muted-foreground text-xs">
               {lead ? (lead.name as string) : ''} · {draft.persona_type} theme
             </p>
           </div>
           <Badge variant="outline" className={
-            approved ? 'border-green-500/40 text-green-400 text-xs' :
-            draft.status === 'edited' ? 'border-blue-500/40 text-blue-400 text-xs' :
-            'border-amber-500/40 text-amber-400 text-xs'
+            approved ? 'border-[var(--color-sage)]/40 text-[var(--color-sage)] text-xs' :
+            draft.status === 'edited' ? 'border-[var(--color-slate-blue)]/40 text-[var(--color-slate-blue)] text-xs' :
+            'border-primary/40 text-primary text-xs'
           }>
             {approved ? 'Sent' : draft.status}
           </Badge>
@@ -221,30 +221,30 @@ export default function ApprovalPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left: PDF Preview */}
           <div className="space-y-4">
-            <h2 className="text-white font-semibold text-sm flex items-center gap-2">
-              <Eye className="w-4 h-4 text-purple-400" />
+            <h2 className="text-foreground font-semibold text-sm flex items-center gap-2" style={{ fontFamily: 'var(--font-heading)' }}>
+              <Eye className="w-4 h-4 text-[var(--color-clay)]" />
               PDF Preview
             </h2>
             {draft.pdf_url ? (
-              <div className="rounded-lg overflow-hidden border border-slate-700 bg-slate-900">
+              <div className="rounded-lg overflow-hidden border border-border bg-muted">
                 <iframe
                   src={draft.pdf_url}
                   className="w-full h-[600px]"
                   title="PDF Preview"
                 />
-                <div className="p-2 bg-slate-800 flex gap-2">
+                <div className="p-2 bg-card border-t border-border flex gap-2">
                   <a
                     href={draft.pdf_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-purple-400 hover:text-purple-300 flex items-center gap-1"
+                    className="text-xs text-[var(--color-clay)] hover:text-[var(--terracotta-dark)] flex items-center gap-1 transition-colors"
                   >
                     <FileText className="w-3.5 h-3.5" />Open full PDF
                   </a>
                 </div>
               </div>
             ) : (
-              <div className="rounded-lg border border-slate-700 bg-slate-900 h-[300px] flex items-center justify-center text-slate-500 text-sm">
+              <div className="rounded-lg border border-border bg-muted h-[300px] flex items-center justify-center text-muted-foreground text-sm">
                 No PDF generated yet
               </div>
             )}
@@ -253,14 +253,14 @@ export default function ApprovalPage() {
           {/* Right: Controls */}
           <div className="space-y-4">
             {/* Cover message */}
-            <Card className="bg-slate-800/40 border-slate-700">
+            <Card>
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-white text-sm">WhatsApp Cover Message</CardTitle>
+                  <CardTitle className="text-foreground text-sm">WhatsApp Cover Message</CardTitle>
                   <Button
-                    size="sm"
+                    size="icon-sm"
                     variant="ghost"
-                    className="text-slate-400 hover:text-white h-7 px-2"
+                    className="text-muted-foreground hover:text-foreground"
                     onClick={() => setEditingCover(!editingCover)}
                   >
                     <Edit3 className="w-3.5 h-3.5" />
@@ -273,34 +273,34 @@ export default function ApprovalPage() {
                     <Textarea
                       value={coverMessage}
                       onChange={(e) => setCoverMessage(e.target.value)}
-                      className="bg-slate-700/50 border-slate-600 text-white text-sm h-24 resize-none"
+                      className="text-sm h-24 resize-none"
                     />
                     <div className="flex gap-2">
-                      <Button size="sm" onClick={handleSaveCover} className="bg-amber-500 hover:bg-amber-600 text-slate-900 text-xs">Save</Button>
-                      <Button size="sm" variant="ghost" onClick={() => setEditingCover(false)} className="text-slate-400 text-xs">Cancel</Button>
+                      <Button size="sm" onClick={handleSaveCover}>Save</Button>
+                      <Button size="sm" variant="ghost" onClick={() => setEditingCover(false)} className="text-muted-foreground">Cancel</Button>
                     </div>
                   </>
                 ) : (
-                  <p className="text-slate-300 text-sm whitespace-pre-wrap leading-relaxed">{coverMessage}</p>
+                  <p className="text-foreground text-sm whitespace-pre-wrap leading-relaxed">{coverMessage}</p>
                 )}
               </CardContent>
             </Card>
 
             {/* Sections */}
             <div className="space-y-2">
-              <h3 className="text-slate-400 text-xs uppercase tracking-wider">PDF Sections ({sections.length})</h3>
+              <h3 className="text-muted-foreground text-xs uppercase tracking-wider">PDF Sections ({sections.length})</h3>
               {sections.map((section) => (
-                <Card key={section.id} className="bg-slate-800/40 border-slate-700">
+                <Card key={section.id}>
                   <CardContent className="py-3 px-3 space-y-2">
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1">
-                        <p className="text-white text-xs font-semibold">{section.heading}</p>
-                        <Badge variant="outline" className="border-slate-600 text-slate-500 text-xs mt-0.5">{section.section_type}</Badge>
+                        <p className="text-foreground text-xs font-semibold">{section.heading}</p>
+                        <Badge variant="outline" className="border-border text-muted-foreground text-xs mt-0.5">{section.section_type}</Badge>
                       </div>
                       <Button
-                        size="sm"
+                        size="icon-xs"
                         variant="ghost"
-                        className="text-slate-400 hover:text-white h-6 px-2 flex-shrink-0"
+                        className="text-muted-foreground hover:text-foreground flex-shrink-0"
                         onClick={() => editingSection === section.id ? setEditingSection(null) : handleEditSection(section)}
                       >
                         <Edit3 className="w-3 h-3" />
@@ -312,34 +312,35 @@ export default function ApprovalPage() {
                         <Textarea
                           value={sectionBody}
                           onChange={(e) => setSectionBody(e.target.value)}
-                          className="bg-slate-700/50 border-slate-600 text-white text-xs h-28 resize-none"
+                          className="text-xs h-28 resize-none"
                         />
                         <div className="flex gap-1">
                           <Button
                             size="sm"
                             onClick={() => handleSaveSection(section.id)}
                             disabled={sectionLoading === section.id}
-                            className="bg-blue-600 hover:bg-blue-700 text-white text-xs h-7"
+                            className="text-xs h-7"
                           >
                             {sectionLoading === section.id ? <Loader2 className="w-3 h-3 animate-spin" /> : 'Save'}
                           </Button>
-                          <Button size="sm" variant="ghost" onClick={() => setEditingSection(null)} className="text-slate-400 text-xs h-7">Cancel</Button>
+                          <Button size="sm" variant="ghost" onClick={() => setEditingSection(null)} className="text-muted-foreground text-xs h-7">Cancel</Button>
                         </div>
-                        <Separator className="bg-slate-700" />
+                        <Separator />
                         <div className="space-y-1.5">
-                          <Label className="text-slate-500 text-xs">Regenerate with note</Label>
+                          <Label className="text-muted-foreground text-xs">Regenerate with note</Label>
                           <div className="flex gap-1">
                             <Input
                               value={regenerateNote}
                               onChange={(e) => setRegenerateNote(e.target.value)}
                               placeholder="Make this more reassuring..."
-                              className="bg-slate-700/50 border-slate-600 text-white text-xs h-7"
+                              className="text-xs h-7"
                             />
                             <Button
-                              size="sm"
+                              size="icon-sm"
                               onClick={() => handleRegenerateSection(section.id)}
                               disabled={sectionLoading === section.id}
-                              className="bg-purple-600 hover:bg-purple-700 text-white h-7 px-2"
+                              variant="outline"
+                              className="h-7 px-2 border-[var(--color-clay)]/40 text-[var(--color-clay)] hover:bg-[var(--color-clay)]/10"
                             >
                               {sectionLoading === section.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <RefreshCw className="w-3 h-3" />}
                             </Button>
@@ -347,32 +348,32 @@ export default function ApprovalPage() {
                         </div>
                       </div>
                     ) : (
-                      <p className="text-slate-400 text-xs line-clamp-2">{section.body.slice(0, 120)}...</p>
+                      <p className="text-muted-foreground text-xs line-clamp-2">{section.body.slice(0, 120)}...</p>
                     )}
                   </CardContent>
                 </Card>
               ))}
             </div>
 
-            <Separator className="bg-slate-700" />
+            <Separator />
 
             {/* Lead phone + action buttons */}
             {!approved ? (
               <div className="space-y-3">
                 <div className="space-y-1">
-                  <Label className="text-slate-300 text-xs">Lead&apos;s WhatsApp Number</Label>
+                  <Label className="text-foreground text-xs">Lead&apos;s WhatsApp Number</Label>
                   <Input
                     value={leadPhone}
                     onChange={(e) => setLeadPhone(e.target.value)}
                     placeholder="+91 9876543210"
-                    className="bg-slate-700/50 border-slate-600 text-white text-sm"
+                    className="text-sm"
                   />
                 </div>
                 <div className="flex gap-2">
                   <Button
                     onClick={handleApprove}
                     disabled={approving || !leadPhone}
-                    className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold gap-2"
+                    className="flex-1 gap-2"
                   >
                     {approving ? <><Loader2 className="w-4 h-4 animate-spin" />Sending...</> : <><Send className="w-4 h-4" />Approve & Send</>}
                   </Button>
@@ -380,20 +381,20 @@ export default function ApprovalPage() {
                     onClick={handleSkip}
                     disabled={skipping}
                     variant="outline"
-                    className="border-slate-600 text-slate-300 gap-2"
+                    className="gap-2"
                   >
                     {skipping ? <Loader2 className="w-4 h-4 animate-spin" /> : <X className="w-4 h-4" />}
                     Skip
                   </Button>
                 </div>
-                <p className="text-slate-600 text-xs text-center">
+                <p className="text-muted-foreground/60 text-xs text-center">
                   ⚠ Nothing is sent until you click Approve
                 </p>
               </div>
             ) : (
-              <div className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
-                <CheckCircle className="w-5 h-5 text-green-400" />
-                <p className="text-green-400 text-sm font-medium">PDF sent to lead&apos;s WhatsApp</p>
+              <div className="flex items-center gap-2 p-3 bg-[var(--color-sage)]/10 border border-[var(--color-sage)]/30 rounded-lg">
+                <CheckCircle className="w-5 h-5 text-[var(--color-sage)]" />
+                <p className="text-[var(--color-sage)] text-sm font-medium">PDF sent to lead&apos;s WhatsApp</p>
               </div>
             )}
           </div>

@@ -163,25 +163,25 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950">
-      {/* Header */}
-      <div className="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-10">
+    <div className="min-h-screen bg-background">
+      {/* Floating header */}
+      <div className="border-b border-border bg-background/90 backdrop-blur sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded bg-amber-500/20 flex items-center justify-center">
-              <span className="text-amber-400 font-black text-sm">S</span>
+            <div className="w-8 h-8 rounded bg-primary/15 flex items-center justify-center">
+              <span className="text-primary font-black text-sm" style={{ fontFamily: 'var(--font-heading)' }}>S</span>
             </div>
-            <span className="text-white font-semibold">BDA Agent</span>
+            <span className="text-foreground font-semibold">BDA Agent</span>
           </div>
           <div className="flex items-center gap-3">
-            <Badge variant="outline" className="border-green-500/40 text-green-400 text-xs gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
+            <Badge variant="outline" className="border-[var(--color-sage)]/40 text-[var(--color-sage)] text-xs gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-sage)]" />
               {bdaPhone}
             </Badge>
             <Button
-              size="sm"
+              size="icon-sm"
               variant="ghost"
-              className="text-slate-400 hover:text-white"
+              className="text-muted-foreground hover:text-foreground"
               onClick={() => router.push('/')}
             >
               <Settings className="w-4 h-4" />
@@ -191,15 +191,15 @@ export default function DashboardPage() {
       </div>
 
       <div className="max-w-5xl mx-auto px-4 py-6 space-y-6">
-        {/* Create Lead */}
+        {/* Create Lead header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-bold text-white">Leads</h1>
-            <p className="text-slate-500 text-sm">{leads.length} total</p>
+            <h1 className="text-xl font-bold text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>Leads</h1>
+            <p className="text-muted-foreground text-sm">{leads.length} total</p>
           </div>
           <Button
             onClick={() => setShowForm(!showForm)}
-            className="bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold gap-2"
+            className="gap-2"
           >
             <Plus className="w-4 h-4" />
             New Lead
@@ -208,16 +208,16 @@ export default function DashboardPage() {
 
         {/* Create Lead Form */}
         {showForm && (
-          <Card className="bg-slate-800/60 border-slate-700">
+          <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-white text-base">Create Lead</CardTitle>
+              <CardTitle className="text-foreground text-base">Create Lead</CardTitle>
               <div className="flex flex-wrap gap-2 pt-1">
-                <span className="text-slate-500 text-xs">Quick load:</span>
+                <span className="text-muted-foreground text-xs">Quick load:</span>
                 {Object.keys(SAMPLE_PROFILES).map((key) => (
                   <button
                     key={key}
                     onClick={() => loadSample(key as keyof typeof SAMPLE_PROFILES)}
-                    className="text-xs text-amber-400 hover:text-amber-300 underline"
+                    className="text-xs text-primary hover:text-[var(--terracotta-dark)] underline"
                   >
                     {SAMPLE_PROFILES[key as keyof typeof SAMPLE_PROFILES].name}
                   </button>
@@ -226,38 +226,38 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <Tabs value={profileMode} onValueChange={(v) => setProfileMode(v as 'form' | 'json')}>
-                <TabsList className="bg-slate-700/50 w-full">
+                <TabsList className="w-full">
                   <TabsTrigger value="form" className="flex-1 text-xs">Form Fields</TabsTrigger>
                   <TabsTrigger value="json" className="flex-1 text-xs">Paste JSON</TabsTrigger>
                 </TabsList>
                 <TabsContent value="form" className="space-y-3 pt-2">
                   <div className="grid grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <Label className="text-slate-300 text-xs">Name *</Label>
-                      <Input value={formName} onChange={(e) => setFormName(e.target.value)} placeholder="Rohan Sharma" className="bg-slate-700/50 border-slate-600 text-white text-sm" />
+                      <Label className="text-foreground text-xs">Name *</Label>
+                      <Input value={formName} onChange={(e) => setFormName(e.target.value)} placeholder="Rohan Sharma" className="text-sm" />
                     </div>
                     <div className="space-y-1">
-                      <Label className="text-slate-300 text-xs">Current Role / Company</Label>
-                      <Input value={formRole} onChange={(e) => setFormRole(e.target.value)} placeholder="SDE-2 at TCS" className="bg-slate-700/50 border-slate-600 text-white text-sm" />
+                      <Label className="text-foreground text-xs">Current Role / Company</Label>
+                      <Input value={formRole} onChange={(e) => setFormRole(e.target.value)} placeholder="SDE-2 at TCS" className="text-sm" />
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <Label className="text-slate-300 text-xs">Years of Experience</Label>
-                      <Input value={formYoe} onChange={(e) => setFormYoe(e.target.value)} placeholder="4" className="bg-slate-700/50 border-slate-600 text-white text-sm" />
+                      <Label className="text-foreground text-xs">Years of Experience</Label>
+                      <Input value={formYoe} onChange={(e) => setFormYoe(e.target.value)} placeholder="4" className="text-sm" />
                     </div>
                     <div className="space-y-1">
-                      <Label className="text-slate-300 text-xs">Current Package (LPA)</Label>
-                      <Input value={formPackage} onChange={(e) => setFormPackage(e.target.value)} placeholder="14" className="bg-slate-700/50 border-slate-600 text-white text-sm" />
+                      <Label className="text-foreground text-xs">Current Package (LPA)</Label>
+                      <Input value={formPackage} onChange={(e) => setFormPackage(e.target.value)} placeholder="14" className="text-sm" />
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <Label className="text-slate-300 text-xs">Intent / What brought them to Scaler</Label>
-                    <Textarea value={formIntent} onChange={(e) => setFormIntent(e.target.value)} placeholder="Want to switch to product, interested in AI roles..." className="bg-slate-700/50 border-slate-600 text-white text-sm h-20 resize-none" />
+                    <Label className="text-foreground text-xs">Intent / What brought them to Scaler</Label>
+                    <Textarea value={formIntent} onChange={(e) => setFormIntent(e.target.value)} placeholder="Want to switch to product, interested in AI roles..." className="text-sm h-20 resize-none" />
                   </div>
                   <div className="space-y-1">
-                    <Label className="text-slate-300 text-xs">LinkedIn Summary (paste relevant info)</Label>
-                    <Textarea value={formLinkedin} onChange={(e) => setFormLinkedin(e.target.value)} placeholder="B.Tech CSE VIT 2020, 4 years at TCS banking team, AWS cert..." className="bg-slate-700/50 border-slate-600 text-white text-sm h-16 resize-none" />
+                    <Label className="text-foreground text-xs">LinkedIn Summary (paste relevant info)</Label>
+                    <Textarea value={formLinkedin} onChange={(e) => setFormLinkedin(e.target.value)} placeholder="B.Tech CSE VIT 2020, 4 years at TCS banking team, AWS cert..." className="text-sm h-16 resize-none" />
                   </div>
                 </TabsContent>
                 <TabsContent value="json" className="space-y-2 pt-2">
@@ -265,24 +265,24 @@ export default function DashboardPage() {
                     value={formJson}
                     onChange={(e) => { setFormJson(e.target.value); setJsonError('') }}
                     placeholder={'{\n  "name": "Rohan Sharma",\n  "current_role": "SDE-2, TCS",\n  "years_of_experience": "4",\n  "intent": "switch to product company"\n}'}
-                    className="bg-slate-700/50 border-slate-600 text-white text-sm h-40 resize-none font-mono"
+                    className="text-sm h-40 resize-none font-mono"
                   />
-                  {jsonError && <p className="text-red-400 text-xs">{jsonError}</p>}
+                  {jsonError && <p className="text-destructive text-xs">{jsonError}</p>}
                 </TabsContent>
               </Tabs>
 
-              <Separator className="bg-slate-700" />
+              <Separator />
 
               <div className="space-y-1">
-                <Label className="text-slate-300 text-xs">Lead&apos;s WhatsApp Number (for PDF delivery)</Label>
-                <Input value={formLeadPhone} onChange={(e) => setFormLeadPhone(e.target.value)} placeholder="+91 9876543210" className="bg-slate-700/50 border-slate-600 text-white text-sm" />
+                <Label className="text-foreground text-xs">Lead&apos;s WhatsApp Number (for PDF delivery)</Label>
+                <Input value={formLeadPhone} onChange={(e) => setFormLeadPhone(e.target.value)} placeholder="+91 9876543210" className="text-sm" />
               </div>
 
               <div className="flex gap-2 pt-1">
-                <Button onClick={handleCreateLead} disabled={loading} className="flex-1 bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold">
+                <Button onClick={handleCreateLead} disabled={loading} className="flex-1">
                   {loading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Creating...</> : 'Create Lead & Continue'}
                 </Button>
-                <Button variant="outline" onClick={() => { setShowForm(false); resetForm() }} className="border-slate-600 text-slate-300">Cancel</Button>
+                <Button variant="outline" onClick={() => { setShowForm(false); resetForm() }}>Cancel</Button>
               </div>
             </CardContent>
           </Card>
@@ -291,7 +291,7 @@ export default function DashboardPage() {
         {/* Leads List */}
         <div className="space-y-2">
           {leads.length === 0 && (
-            <div className="text-center py-16 text-slate-500">
+            <div className="text-center py-16 text-muted-foreground">
               <User className="w-10 h-10 mx-auto mb-3 opacity-40" />
               <p className="text-sm">No leads yet. Create one to get started.</p>
             </div>
@@ -302,15 +302,15 @@ export default function DashboardPage() {
               onClick={() => router.push(`/lead/${lead.id}`)}
               className="w-full text-left"
             >
-              <Card className="bg-slate-800/40 border-slate-700 hover:bg-slate-800/80 hover:border-slate-600 transition-all cursor-pointer">
+              <Card className="hover:shadow-[0_2px_4px_rgba(38,32,25,0.08),0_8px_24px_rgba(38,32,25,0.12)] transition-shadow duration-200 cursor-pointer">
                 <CardContent className="py-4 px-4 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-slate-700 flex items-center justify-center text-slate-300 font-semibold text-sm">
+                    <div className="w-9 h-9 rounded-full bg-primary/15 flex items-center justify-center text-primary font-semibold text-sm">
                       {lead.name.charAt(0).toUpperCase()}
                     </div>
                     <div>
-                      <p className="text-white font-medium text-sm">{lead.name}</p>
-                      <p className="text-slate-500 text-xs">
+                      <p className="text-foreground font-medium text-sm">{lead.name}</p>
+                      <p className="text-muted-foreground text-xs">
                         {(lead.profile_json?.current_role as string) || 'No role specified'}
                       </p>
                     </div>
@@ -319,23 +319,23 @@ export default function DashboardPage() {
                     <Badge
                       variant="outline"
                       className={lead.stage === 'post_call'
-                        ? 'border-green-500/40 text-green-400 text-xs'
-                        : 'border-amber-500/40 text-amber-400 text-xs'
+                        ? 'border-[var(--color-sage)]/40 text-[var(--color-sage)] text-xs'
+                        : 'border-primary/40 text-primary text-xs'
                       }
                     >
                       {lead.stage === 'post_call' ? 'Post-call' : 'Pre-call'}
                     </Badge>
                     {lead.nudges && lead.nudges.length > 0 && (
-                      <Badge variant="outline" className="border-blue-500/40 text-blue-400 text-xs gap-1">
+                      <Badge variant="outline" className="border-[var(--color-slate-blue)]/40 text-[var(--color-slate-blue)] text-xs gap-1">
                         <Phone className="w-3 h-3" />Nudge sent
                       </Badge>
                     )}
                     {lead.pdf_drafts && lead.pdf_drafts.length > 0 && (
-                      <Badge variant="outline" className="border-purple-500/40 text-purple-400 text-xs gap-1">
+                      <Badge variant="outline" className="border-[var(--color-clay)]/40 text-[var(--color-clay)] text-xs gap-1">
                         <FileText className="w-3 h-3" />PDF
                       </Badge>
                     )}
-                    <ChevronRight className="w-4 h-4 text-slate-600" />
+                    <ChevronRight className="w-4 h-4 text-muted-foreground/40" />
                   </div>
                 </CardContent>
               </Card>
@@ -343,24 +343,7 @@ export default function DashboardPage() {
           ))}
         </div>
 
-        {/* Compare link */}
-        {leads.length >= 2 && (
-          <div className="text-center pt-4">
-            <button
-              onClick={() => {
-                const ids = leads.slice(0, 3).map((l) => {
-                  const draft = l.pdf_drafts?.[0]
-                  return draft?.id
-                }).filter(Boolean)
-                if (ids.length < 2) { toast.error('Generate PDFs for at least 2 leads first'); return }
-                router.push(`/compare?ids=${ids.join(',')}`)
-              }}
-              className="text-xs text-slate-500 hover:text-amber-400 underline transition-colors"
-            >
-              Compare PDFs side-by-side →
-            </button>
-          </div>
-        )}
+
       </div>
     </div>
   )

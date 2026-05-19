@@ -53,8 +53,9 @@ export async function renderPDF(html: string): Promise<Buffer> {
     })
 
     const page = await browser.newPage()
-    // domcontentloaded is fast and correct for self-contained HTML (no external resources)
-    await page.setContent(html, { waitUntil: 'domcontentloaded', timeout: 10000 })
+    // networkidle0 ensures Google Fonts (Fraunces + Plus Jakarta Sans) finish loading
+    // before the PDF is captured. Timeout is generous to allow font CDN in serverless.
+    await page.setContent(html, { waitUntil: 'networkidle0', timeout: 30000 })
 
     const pdfBuffer = await page.pdf({
       format: 'A4',

@@ -1,13 +1,14 @@
 import { PDFContent } from '../../llm/prompts/pdfSections'
 
-// Theme: engineer persona — pragmatic, dark-accent, ROI-focused visual style
-// Palette: deep indigo + amber accent
+// Warm Cream Editorial — Engineer persona
+// Persona tint: clay (#BC5A2E at 10%) on ROI / curriculum sections
 
 export function renderEngineerTemplate(content: PDFContent): string {
   const sectionsHTML = content.sections
     .map(
       (s) => `
     <div class="section ${s.section_type}">
+      <div class="section-type-label">${formatTag(s.section_type)}</div>
       <h2 class="section-heading">${escapeHtml(s.heading)}</h2>
       <div class="section-body">${markdownToHtml(s.body)}</div>
       ${s.kb_citations.length ? `<p class="citation">Source: Scaler curriculum [${s.kb_citations.join(', ')}]</p>` : ''}
@@ -22,185 +23,240 @@ export function renderEngineerTemplate(content: PDFContent): string {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Your Scaler Path — ${escapeHtml(content.lead_name)}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --cream: #EAE4D8;
+    --warm-white: #F5F3EC;
+    --ink: #262019;
+    --body: #574E44;
+    --muted: #6B6357;
+    --terracotta: #BC5A2E;
+    --terracotta-dark: #8A3D1C;
+    --dark-band: #17120D;
+    --persona-tint: rgba(188, 90, 46, 0.09);
+    --persona-border: #BC5A2E;
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  
+
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #0f0f1a;
-    color: #e2e8f0;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    background: var(--cream);
+    color: var(--body);
     font-size: 14px;
-    line-height: 1.7;
+    line-height: 1.65;
   }
 
   .page {
     max-width: 800px;
     margin: 0 auto;
-    background: #0f0f1a;
+    background: var(--cream);
   }
 
-  /* Hero */
+  /* ── Hero ── */
   .hero {
-    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%);
-    padding: 48px 48px 40px;
-    border-bottom: 3px solid #f59e0b;
+    padding: 52px 52px 44px;
+    background: var(--cream);
+    border-bottom: 1.5px solid rgba(38,32,25,0.12);
     position: relative;
-    overflow: hidden;
   }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -50px; right: -50px;
-    width: 200px; height: 200px;
-    background: radial-gradient(circle, rgba(245,158,11,0.15) 0%, transparent 70%);
-    border-radius: 50%;
-  }
+
   .hero-label {
     font-size: 10px;
-    letter-spacing: 3px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #f59e0b;
+    color: var(--terracotta-dark);
     font-weight: 600;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
+
   .hero-headline {
-    font-size: 28px;
-    font-weight: 800;
-    color: #ffffff;
-    line-height: 1.25;
-    margin-bottom: 12px;
-    letter-spacing: -0.5px;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 14px;
+    letter-spacing: -0.025em;
+    max-width: 620px;
   }
+
+  .hero-headline em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
   .hero-subheadline {
     font-size: 15px;
-    color: #a5b4fc;
-    max-width: 560px;
-    line-height: 1.6;
+    color: var(--muted);
+    max-width: 540px;
+    line-height: 1.7;
   }
+
   .scaler-badge {
     position: absolute;
-    top: 48px; right: 48px;
-    background: #f59e0b;
-    color: #0f0f1a;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    padding: 6px 14px;
-    border-radius: 2px;
+    top: 52px;
+    right: 52px;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--terracotta-dark);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
 
-  /* Intro */
+  /* ── Intro ── */
   .intro {
-    padding: 32px 48px;
-    background: #13131f;
-    border-bottom: 1px solid #1e1b4b;
-  }
-  .intro p {
-    color: #94a3b8;
-    font-size: 14px;
-    line-height: 1.8;
+    padding: 28px 52px;
+    background: var(--warm-white);
+    border-bottom: 1.5px solid rgba(38,32,25,0.08);
+    box-shadow: inset 0 -1px 0 rgba(38,32,25,0.04);
   }
 
-  /* Sections */
+  .intro p {
+    color: var(--body);
+    font-size: 14.5px;
+    line-height: 1.75;
+    max-width: 65ch;
+  }
+
+  /* ── Sections ── */
   .section {
-    padding: 32px 48px;
-    border-bottom: 1px solid #1a1a2e;
+    padding: 32px 52px;
+    border-bottom: 1.5px solid rgba(38,32,25,0.07);
     position: relative;
   }
-  .section:nth-child(even) { background: #11111d; }
-  .section:nth-child(odd) { background: #0f0f1a; }
+
+  .section:nth-child(odd) { background: var(--cream); }
+  .section:nth-child(even) { background: var(--warm-white); }
+
+  .section-type-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
 
   .section-heading {
-    font-size: 16px;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 19px;
     font-weight: 700;
-    color: #f59e0b;
+    color: var(--ink);
     margin-bottom: 14px;
-    padding-left: 12px;
-    border-left: 3px solid #f59e0b;
-    letter-spacing: -0.2px;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
   }
+
   .section-body {
-    color: #cbd5e1;
-    font-size: 13.5px;
-    line-height: 1.8;
+    color: var(--body);
+    font-size: 14px;
+    line-height: 1.75;
   }
-  .section-body strong { color: #e2e8f0; font-weight: 600; }
-  .section-body ul { padding-left: 20px; margin-top: 8px; }
-  .section-body li { margin-bottom: 6px; }
-  .section-body p { margin-bottom: 10px; }
+
+  .section-body p { margin-bottom: 10px; max-width: 65ch; }
+  .section-body strong { color: var(--ink); font-weight: 600; }
+  .section-body em { font-style: italic; color: var(--terracotta); }
+  .section-body ul { padding-left: 20px; margin: 8px 0; }
+  .section-body li { margin-bottom: 6px; color: var(--body); }
+
+  /* persona tints */
+  .roi_analysis .section-body,
+  .curriculum_detail .section-body {
+    background: var(--persona-tint);
+    padding: 16px 18px;
+    border-radius: 6px;
+    border-left: 3px solid var(--persona-border);
+  }
+
   .citation {
-    margin-top: 10px;
+    margin-top: 12px;
     font-size: 10px;
-    color: #475569;
+    color: var(--muted);
     font-style: italic;
   }
 
-  /* ROI table style */
-  .roi_analysis .section-body {
-    background: #1a1a2e;
-    padding: 16px;
-    border-radius: 4px;
-    border-left: 3px solid #f59e0b;
-  }
-
-  /* CTA */
+  /* ── CTA — dark band ── */
   .cta {
-    padding: 40px 48px;
-    background: linear-gradient(135deg, #1e1b4b, #0f172a);
+    padding: 48px 52px;
+    background: var(--dark-band);
     text-align: center;
   }
-  .cta-text {
-    font-size: 18px;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 8px;
-  }
-  .cta-sub {
-    font-size: 13px;
-    color: #94a3b8;
-    margin-bottom: 24px;
-  }
-  .cta-button {
-    display: inline-block;
-    background: #f59e0b;
-    color: #0f0f1a;
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 14px 36px;
-    border-radius: 3px;
-    text-decoration: none;
+
+  .cta-headline {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: #F5F3EC;
+    margin-bottom: 10px;
+    letter-spacing: -0.025em;
+    line-height: 1.3;
   }
 
-  /* Footer */
+  .cta-sub {
+    font-size: 13px;
+    color: rgba(245,243,236,0.55);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  /* cartoon button */
+  .cta-button {
+    display: inline-block;
+    background: var(--terracotta);
+    color: #F5F3EC;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 13px 32px;
+    border-radius: 100px;
+    text-decoration: none;
+    border: 2.5px solid var(--ink);
+    box-shadow: 0 5px 0 var(--ink);
+    position: relative;
+    top: 0;
+    transition: top 0.1s ease, box-shadow 0.1s ease;
+  }
+
+  /* ── Footer — dark band ── */
   .footer {
-    padding: 20px 48px;
-    background: #0a0a14;
+    padding: 32px 52px;
+    background: var(--dark-band);
+    border-top: 1px solid rgba(245,243,236,0.08);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #1e1b4b;
   }
+
   .footer-brand {
-    font-size: 11px;
-    color: #475569;
-    font-weight: 600;
-    letter-spacing: 2px;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: rgba(245,243,236,0.9);
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
+
   .footer-note {
     font-size: 10px;
-    color: #334155;
+    color: rgba(245,243,236,0.35);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
 </style>
 </head>
 <body>
 <div class="page">
+
   <div class="hero">
     <div class="scaler-badge">Scaler</div>
-    <div class="hero-label">Prepared for you · ${escapeHtml(content.lead_name)}</div>
+    <div class="hero-label">Prepared for you &middot; ${escapeHtml(content.lead_name)}</div>
     <h1 class="hero-headline">${escapeHtml(content.hero_headline)}</h1>
     <p class="hero-subheadline">${escapeHtml(content.hero_subheadline)}</p>
   </div>
@@ -212,18 +268,23 @@ export function renderEngineerTemplate(content: PDFContent): string {
   ${sectionsHTML}
 
   <div class="cta">
-    <p class="cta-text">${escapeHtml(content.closing_cta)}</p>
-    <p class="cta-sub">The entrance test is your next step. It takes 45 minutes.</p>
-    <span class="cta-button">Take the Entrance Test</span>
+    <p class="cta-headline">${escapeHtml(content.closing_cta)}</p>
+    <p class="cta-sub">The entrance test takes 45 minutes. It&rsquo;s the only next step.</p>
+    <span class="cta-button">Take the Entrance Test &rarr;</span>
   </div>
 
   <div class="footer">
-    <span class="footer-brand">Scaler Academy</span>
-    <span class="footer-note">Prepared specifically for ${escapeHtml(content.lead_name)}</span>
+    <span class="footer-brand">Scaler</span>
+    <span class="footer-note">Prepared for ${escapeHtml(content.lead_name)}</span>
   </div>
+
 </div>
 </body>
 </html>`
+}
+
+function formatTag(type: string): string {
+  return type.replace(/_/g, ' ')
 }
 
 function escapeHtml(text: string): string {

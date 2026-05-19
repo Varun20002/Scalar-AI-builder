@@ -147,15 +147,15 @@ export default function LeadPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-        <Loader2 className="w-6 h-6 text-amber-400 animate-spin" />
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-6 h-6 text-primary animate-spin" />
       </div>
     )
   }
 
   if (!lead) {
     return (
-      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-slate-400">
+      <div className="min-h-screen bg-background flex items-center justify-center text-muted-foreground">
         Lead not found
       </div>
     )
@@ -164,21 +164,21 @@ export default function LeadPage() {
   const profile = lead.profile_json as Record<string, string>
 
   return (
-    <div className="min-h-screen bg-slate-950">
-      {/* Header */}
-      <div className="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-10">
+    <div className="min-h-screen bg-background">
+      {/* Floating header */}
+      <div className="border-b border-border bg-background/90 backdrop-blur sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
-          <Button variant="ghost" size="sm" onClick={() => router.push('/dashboard')} className="text-slate-400 hover:text-white">
+          <Button variant="ghost" size="icon-sm" onClick={() => router.push('/dashboard')} className="text-muted-foreground hover:text-foreground">
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <div className="flex-1">
-            <h1 className="text-white font-semibold">{lead.name as string}</h1>
-            <p className="text-slate-500 text-xs">{profile.current_role || 'No role'}</p>
+            <h1 className="text-foreground font-semibold" style={{ fontFamily: 'var(--font-heading)' }}>{lead.name as string}</h1>
+            <p className="text-muted-foreground text-xs">{profile.current_role || 'No role'}</p>
           </div>
           <Badge variant="outline" className={
             lead.stage === 'post_call'
-              ? 'border-green-500/40 text-green-400 text-xs'
-              : 'border-amber-500/40 text-amber-400 text-xs'
+              ? 'border-[var(--color-sage)]/40 text-[var(--color-sage)] text-xs'
+              : 'border-primary/40 text-primary text-xs'
           }>
             {lead.stage === 'post_call' ? 'Post-call' : 'Pre-call'}
           </Badge>
@@ -187,13 +187,13 @@ export default function LeadPage() {
 
       <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
         {/* Profile summary */}
-        <Card className="bg-slate-800/40 border-slate-700">
+        <Card>
           <CardContent className="py-4 px-4">
             <div className="grid grid-cols-2 gap-3 text-sm">
               {Object.entries(profile).filter(([k]) => k !== 'name').map(([key, val]) => (
                 <div key={key}>
-                  <p className="text-slate-500 text-xs capitalize">{key.replace(/_/g, ' ')}</p>
-                  <p className="text-slate-200 text-sm">{val || '—'}</p>
+                  <p className="text-muted-foreground text-xs capitalize">{key.replace(/_/g, ' ')}</p>
+                  <p className="text-foreground text-sm">{val || '—'}</p>
                 </div>
               ))}
             </div>
@@ -201,69 +201,70 @@ export default function LeadPage() {
         </Card>
 
         {/* STAGE A: Pre-call nudge */}
-        <Card className="bg-slate-800/40 border-slate-700">
+        <Card>
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center">
-                  <Zap className="w-3.5 h-3.5 text-amber-400" />
+                <div className="w-6 h-6 rounded-full bg-primary/15 flex items-center justify-center">
+                  <Zap className="w-3.5 h-3.5 text-primary" />
                 </div>
-                <CardTitle className="text-white text-sm">Stage A — Pre-call Nudge</CardTitle>
+                <CardTitle className="text-foreground text-sm">Stage A — Pre-call Nudge</CardTitle>
               </div>
-              {nudgeDone && <Badge variant="outline" className="border-green-500/40 text-green-400 text-xs gap-1"><CheckCircle className="w-3 h-3" />Sent</Badge>}
+              {nudgeDone && (
+                <Badge variant="outline" className="border-[var(--color-sage)]/40 text-[var(--color-sage)] text-xs gap-1">
+                  <CheckCircle className="w-3 h-3" />Sent
+                </Badge>
+              )}
             </div>
           </CardHeader>
           <CardContent className="space-y-3">
-            <p className="text-slate-400 text-xs">
+            <p className="text-muted-foreground text-xs">
               Generates a scannable WhatsApp brief for you — who this lead is, angles to use, objections to expect, opening hook.
               Sent directly to your phone, no approval needed.
             </p>
             {nudgeDone && nudgeContent && (
-              <div className="bg-slate-900 rounded-lg p-3 border border-slate-700">
+              <div className="bg-muted rounded-lg p-3 border border-border">
                 <div className="flex items-center gap-1.5 mb-2">
-                  <MessageSquare className="w-3.5 h-3.5 text-green-400" />
-                  <span className="text-green-400 text-xs font-medium">Sent to your WhatsApp</span>
+                  <MessageSquare className="w-3.5 h-3.5 text-[var(--color-sage)]" />
+                  <span className="text-[var(--color-sage)] text-xs font-medium">Sent to your WhatsApp</span>
                 </div>
-                <p className="text-slate-300 text-xs whitespace-pre-wrap leading-relaxed">{nudgeContent}</p>
+                <p className="text-foreground text-xs whitespace-pre-wrap leading-relaxed">{nudgeContent}</p>
               </div>
             )}
             <Button
               onClick={handleGenerateNudge}
               disabled={nudgeLoading}
               variant={nudgeDone ? 'outline' : 'default'}
-              className={nudgeDone
-                ? 'border-slate-600 text-slate-300 text-sm w-full'
-                : 'bg-amber-500 hover:bg-amber-600 text-slate-900 font-semibold text-sm w-full'
-              }
+              className="text-sm w-full"
             >
               {nudgeLoading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Generating...</> : nudgeDone ? 'Regenerate Nudge' : 'Generate & Send Pre-call Nudge'}
             </Button>
           </CardContent>
         </Card>
 
-        <Separator className="bg-slate-800" />
+        <Separator />
 
         {/* STAGE B: Post-call PDF */}
-        <Card className="bg-slate-800/40 border-slate-700">
+        <Card>
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-full bg-purple-500/20 flex items-center justify-center">
-                  <FileText className="w-3.5 h-3.5 text-purple-400" />
+                <div className="w-6 h-6 rounded-full bg-[var(--color-clay)]/15 flex items-center justify-center">
+                  <FileText className="w-3.5 h-3.5 text-[var(--color-clay)]" />
                 </div>
-                <CardTitle className="text-white text-sm">Stage B — Post-call PDF</CardTitle>
+                <CardTitle className="text-foreground text-sm">Stage B — Post-call PDF</CardTitle>
               </div>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
-            <p className="text-slate-400 text-xs">
+            <p className="text-muted-foreground text-xs">
               After the call, add the transcript or upload the recording. The agent extracts open questions,
               generates a personalised PDF, and queues it for your review before sending.
             </p>
 
             {/* Transcript input */}
             <Tabs value={transcriptMode} onValueChange={(v) => setTranscriptMode(v as 'text' | 'audio')}>
-              <TabsList className="bg-slate-700/50 w-full">
+              <TabsList className="w-full">
                 <TabsTrigger value="text" className="flex-1 text-xs gap-1.5">
                   <FileText className="w-3.5 h-3.5" />Text Transcript
                 </TabsTrigger>
@@ -273,25 +274,25 @@ export default function LeadPage() {
               </TabsList>
 
               <TabsContent value="text" className="space-y-2 pt-2">
-                <Label className="text-slate-300 text-xs">Paste call transcript</Label>
+                <Label className="text-foreground text-xs">Paste call transcript</Label>
                 <Textarea
                   value={transcriptText}
                   onChange={(e) => { setTranscriptText(e.target.value); setTranscriptSaved(false) }}
                   placeholder="BDA: Rohan, what's bringing you to Scaler?&#10;Rohan: I've been at TCS for 4 years..."
-                  className="bg-slate-700/50 border-slate-600 text-white text-sm h-36 resize-none font-mono"
+                  className="text-sm h-36 resize-none font-mono"
                 />
               </TabsContent>
 
               <TabsContent value="audio" className="space-y-3 pt-2">
                 <div
-                  className="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center cursor-pointer hover:border-amber-500/50 transition-colors"
+                  className="border-2 border-dashed border-border rounded-lg p-6 text-center cursor-pointer hover:border-primary/50 transition-colors duration-150"
                   onClick={() => document.getElementById('audio-input')?.click()}
                 >
-                  <Upload className="w-8 h-8 text-slate-500 mx-auto mb-2" />
-                  <p className="text-slate-400 text-sm">
+                  <Upload className="w-8 h-8 text-muted-foreground/50 mx-auto mb-2" />
+                  <p className="text-muted-foreground text-sm">
                     {audioFile ? audioFile.name : 'Click to upload MP3 / WAV / M4A'}
                   </p>
-                  <p className="text-slate-600 text-xs mt-1">Transcribed by Deepgram Nova-3</p>
+                  <p className="text-muted-foreground/60 text-xs mt-1">Transcribed by Deepgram Nova-3</p>
                   <input
                     id="audio-input"
                     type="file"
@@ -304,15 +305,16 @@ export default function LeadPage() {
                   <Button
                     onClick={handleTranscribeAudio}
                     disabled={transcribing}
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white text-sm"
+                    variant="outline"
+                    className="w-full text-sm"
                   >
                     {transcribing ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Transcribing...</> : 'Transcribe Audio'}
                   </Button>
                 )}
                 {transcriptText && (
-                  <div className="bg-slate-900 rounded-lg p-3 border border-slate-700 max-h-32 overflow-y-auto">
-                    <p className="text-xs text-slate-500 mb-1">Transcript preview</p>
-                    <p className="text-slate-300 text-xs">{transcriptText.slice(0, 400)}{transcriptText.length > 400 ? '...' : ''}</p>
+                  <div className="bg-muted rounded-lg p-3 border border-border max-h-32 overflow-y-auto">
+                    <p className="text-xs text-muted-foreground mb-1">Transcript preview</p>
+                    <p className="text-foreground text-xs">{transcriptText.slice(0, 400)}{transcriptText.length > 400 ? '...' : ''}</p>
                   </div>
                 )}
               </TabsContent>
@@ -322,7 +324,7 @@ export default function LeadPage() {
               <Button
                 onClick={handleSaveTranscript}
                 variant="outline"
-                className="w-full border-slate-600 text-slate-300 text-sm gap-2"
+                className="w-full text-sm gap-2"
               >
                 <CheckCircle className="w-4 h-4" />
                 Save Transcript
@@ -330,7 +332,7 @@ export default function LeadPage() {
             )}
 
             {transcriptSaved && (
-              <Badge variant="outline" className="border-green-500/40 text-green-400 text-xs gap-1 w-fit">
+              <Badge variant="outline" className="border-[var(--color-sage)]/40 text-[var(--color-sage)] text-xs gap-1 w-fit">
                 <CheckCircle className="w-3 h-3" />Transcript saved
               </Badge>
             )}
@@ -338,7 +340,7 @@ export default function LeadPage() {
             <Button
               onClick={handleGeneratePDF}
               disabled={!transcriptSaved || pdfLoading}
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold text-sm gap-2"
+              className="w-full font-semibold text-sm gap-2"
             >
               {pdfLoading
                 ? <><Loader2 className="w-4 h-4 animate-spin" />Generating PDF (1–2 min)...</>
@@ -350,7 +352,7 @@ export default function LeadPage() {
               <Button
                 variant="outline"
                 onClick={() => router.push(`/approval/${pdfDraftId}`)}
-                className="w-full border-purple-500/40 text-purple-400 text-sm gap-2"
+                className="w-full border-[var(--color-clay)]/40 text-[var(--color-clay)] text-sm gap-2"
               >
                 View & Approve PDF <ChevronRight className="w-4 h-4" />
               </Button>
