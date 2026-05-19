@@ -1,0 +1,111 @@
+description: "Scaler BDA Agent — nudge and PDF content evals"
+
+providers:
+  - id: openai:chat:MiniMax-Text-01
+    config:
+      apiBaseUrl: https://api.minimaxi.chat/v1
+      apiKeyEnvar: MINIMAX_API_KEY
+
+prompts:
+  - id: nudge-prompt
+    label: Pre-call nudge
+    raw: |
+      You are a senior Scaler sales teammate briefing a BDA before a call.
+      Generate a pre-call nudge for this lead profile: {{profile}}
+      Return JSON with: persona_label, angles, objections, opening_hook, inferred_vs_fact, formatted_message
+
+  - id: extract-prompt
+    label: Question extraction
+    raw: |
+      Extract open questions from this transcript: {{transcript}}
+      Lead profile: {{profile}}
+      Return JSON with: questions[], call_sentiment, call_summary
+
+tests:
+  - description: "Rohan — engineer persona nudge"
+    vars:
+      profile: |
+        {
+          "name": "Rohan Sharma",
+          "current_role": "SDE-2, TCS",
+          "years_of_experience": "4",
+          "intent": "switch to product company, interested in AI engineering"
+        }
+    prompt: nudge-prompt
+    assert:
+      - type: is-json
+        description: "Output must be valid JSON"
+      - type: javascript
+        value: |
+          const output = JSON.parse(output);
+          return output.persona_label && output.angles && output.angles.length >= 2;
+        description: "Must have persona_label and at least 2 angles"
+      - type: javascript
+        value: |
+          const output = JSON.parse(output);
+          return output.inferred_vs_fact !== undefined;
+        description: "Must have inferred_vs_fact map"
+      - type: not-contains
+        value: "guaranteed"
+        description: "Must not use 'guaranteed' language"
+
+  - description: "Karthik — senior IC persona nudge"
+    vars:
+      profile: |
+        {
+          "name": "Karthik Iyer",
+          "current_role": "Senior SWE, Google",
+          "years_of_experience": "9",
+          "intent": "exploring AI engineering options"
+        }
+    prompt: nudge-prompt
+    assert:
+      - type: is-json
+      - type: javascript
+        value: |
+          const output = JSON.parse(output);
+          return ['senior', 'engineer'].includes(output.persona_label?.toLowerCase().split(' ')[0] || '');
+        description: "Should recognise senior persona"
+
+  - description: "Meera — student persona nudge (no LinkedIn)"
+    vars:
+      profile: |
+        {
+          "name": "Meera Patel",
+          "current_role": "Final-year B.Tech student",
+          "years_of_experience": "0",
+          "linkedin_summary": "none provided"
+        }
+    prompt: nudge-prompt
+    assert:
+      - type: is-json
+      - type: javascript
+        value: |
+          const output = JSON.parse(output);
+          const facts = output.inferred_vs_fact || {};
+          return Object.values(facts).includes('missing');
+        description: "Must mark linkedin as missing, not infer it"
+      - type: not-contains
+        value: "LinkedIn profile shows"
+        description: "Must not fabricate LinkedIn data"
+
+  - description: "Rohan — question extraction"
+    vars:
+      profile: '{"name": "Rohan Sharma", "years_of_experience": "4"}'
+      transcript: |
+        BDA: Rohan, what's bringing you to Scaler?
+        Rohan: I want to move to a product company. Why should I pay 3.5L when Andrew Ng has the same stuff for free?
+        BDA: Good question. Rohan: Also what salary jump does someone like me get? I want to build real LLM applications.
+    prompt: extract-prompt
+    assert:
+      - type: is-json
+      - type: javascript
+        value: |
+          const output = JSON.parse(output);
+          return output.questions && output.questions.length >= 2;
+        description: "Should extract at least 2 questions"
+      - type: javascript
+        value: |
+          const output = JSON.parse(output);
+          return output.questions.some(q => q.category === 'alternatives' || q.question.toLowerCase().includes('andrew ng') || q.question.toLowerCase().includes('coursera'));
+        description: "Should capture Coursera/Andrew Ng objection"

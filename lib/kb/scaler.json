@@ -1,0 +1,497 @@
+{
+  "programs": [
+    {
+      "id": "prog-academy",
+      "name": "Modern Software & AI Engineering",
+      "also_known_as": "Scaler Academy",
+      "url": "https://www.scaler.com/academy/",
+      "duration": "12 months",
+      "price_inr": 350000,
+      "price_display": "~₹3.5L",
+      "target_yoe": "0-10+ years",
+      "rating": "4.8+",
+      "ratings_count": "25K+ ratings",
+      "next_cohort": "May 2026",
+      "tagline": "Software Engineering hasn't changed. What it takes to be great at it has. Stronger fundamentals, faster delivery, and AI fluency built into how you learn — not just an add on.",
+      "ideal_for": [
+        "SDEs, QA Engineers & Frontend Developers (1-4 YoE) — build AI-aware engineering skills that move you beyond execution-only roles",
+        "Fullstack Developers, Backend & API Engineers (2-6 YoE)",
+        "Software Engineers, Senior Engineers & Tech Leads (3-8 YoE)",
+        "Solution Engineers & AI-First Product Builders (5-10+ YoE)"
+      ],
+      "curriculum_tracks": ["Beginner (12 months, no prior coding)", "Intermediate (12 months, some coding experience)", "Advanced (10 months, DSA background)"],
+      "curriculum_modules": [
+        {
+          "id": "mod-prog-fundamentals",
+          "name": "Programming Fundamentals",
+          "type": "Core",
+          "duration": "2 months / 27 sessions",
+          "topics": ["Operators, data types, if-else, loops, patterns, functions, arrays", "Modular thinking, 2D arrays, memory visualisation with AI", "AI-assisted edge-case thinking, debugging, iteration analysis"],
+          "ai_angle": "AI tools assist from day one for visualisation, edge-case thinking, and critique"
+        },
+        {
+          "id": "mod-intermediate-dsa",
+          "name": "Intermediate DSA: AI-Assisted Problem Solving",
+          "type": "Core",
+          "duration": "1 month / 12 sessions",
+          "topics": ["Time complexity, array techniques, bit manipulation, strings"],
+          "ai_angle": "AI as pair programmer throughout"
+        },
+        {
+          "id": "mod-ai-agents",
+          "name": "AI & Agents: From Talking to AI to Building One",
+          "type": "Core",
+          "duration": "1 month / 11 sessions",
+          "topics": ["Prompt engineering", "RAG (Retrieval-Augmented Generation)", "Multi-agent orchestration", "Shipping AI-powered apps without traditional code"],
+          "ai_angle": "Build autonomous AI systems — RAG pipelines, multi-agent architectures, production deployments"
+        },
+        {
+          "id": "mod-advanced-dsa-1",
+          "name": "Advanced DSA: Foundations, Core Techniques & Optimisation",
+          "type": "Core",
+          "duration": "4 months / 59 sessions",
+          "topics": ["Arrays, recursion, hashing, sorting, bit manipulation", "Portfolio-ready projects (Sudoku solvers, chess engines)"],
+          "ai_angle": "AI collaboration throughout"
+        },
+        {
+          "id": "mod-advanced-dsa-2",
+          "name": "Advanced DSA: DP, Heaps & Graphs",
+          "type": "Core",
+          "duration": "4 months / 18 sessions",
+          "topics": ["Dynamic programming, heaps, greedy algorithms, graph theory"],
+          "ai_angle": "Skill evaluations built in"
+        },
+        {
+          "id": "mod-system-design",
+          "name": "System Design",
+          "type": "Core",
+          "duration": "Included",
+          "topics": ["Low-level design (LLD)", "High-level design (HLD)", "Backend architecture", "Distributed systems"],
+          "ai_angle": "Taught by engineers who shipped at Facebook, Microsoft, Booking.com, Amazon"
+        },
+        {
+          "id": "mod-genai-specialisation",
+          "name": "Generative AI Specialisation",
+          "type": "Specialisation",
+          "duration": "Included in program",
+          "topics": ["LLM fundamentals", "RAG pipelines", "Agentic AI", "Evals", "Production AI systems", "Prompt engineering"],
+          "ai_angle": "Build, evaluate, and ship production AI systems as part of the programme"
+        }
+      ],
+      "projects": [
+        {
+          "id": "proj-linkforge",
+          "name": "LinkForge AI — AI-Powered Link-in-Bio & Digital Hub",
+          "stack": ["HTML", "CSS", "Responsive Design", "AI Integration"],
+          "ai_feature": "AI generates portfolio sections and bios from an uploaded resume"
+        },
+        {
+          "id": "proj-showkart",
+          "name": "ShowKart: AI MERN Capstone",
+          "stack": ["MongoDB", "React", "Node.js", "Authentication"],
+          "ai_feature": "AI powers show recommendations and showtime optimisation for theatre owners"
+        }
+      ],
+      "key_instructors": [
+        {
+          "id": "inst-anshuman",
+          "name": "Anshuman Singh",
+          "role": "Co-Founder, Scaler",
+          "teaches": "Problem Solving & System Design",
+          "background": "Two-time ACM ICPC World Finalist. Built Facebook Messenger as a founding team member.",
+          "yoe": "15+",
+          "rating": 4.9
+        },
+        {
+          "id": "inst-shivank",
+          "name": "Shivank Agarwal",
+          "role": "SVP Engineering, Scaler",
+          "teaches": "System Design & Backend Architecture",
+          "background": "A decade at Microsoft and Oracle. Now SVP of Engineering at Scaler.",
+          "yoe": "14+",
+          "rating": 4.7
+        },
+        {
+          "id": "inst-alok",
+          "name": "Alok Singh",
+          "role": "SDE-2, Booking.com",
+          "teaches": "System Design & Backend Development",
+          "background": "Built Booking.com's Eligibility API serving 5M+ partners daily at 99.99% uptime. Ex-Razorpay, Ex-Samsung.",
+          "yoe": "6+",
+          "rating": 4.7
+        },
+        {
+          "id": "inst-umang",
+          "name": "Umang Agrawal",
+          "role": "SDE-II, Amazon",
+          "teaches": "DSA & Backend Development",
+          "background": "Drives Amazon's Everyday Essentials incentives strategy. Ex-Microsoft. 750+ live sessions, 4.87/5 rating.",
+          "yoe": "5+",
+          "rating": 4.9
+        }
+      ],
+      "platform_features": [
+        "24×7 AI Companion that hints, critiques your approach, and pair-programs alongside you",
+        "AI Mock Interviews — practice with avatars trained on real SWE interview formats across DSA, LLD, and system design",
+        "Lifelong learning access — curriculum updates forever at no extra cost",
+        "1:1 mentor support from active industry professionals currently employed and hiring",
+        "Scaler-built coding platform and terminal-based judges",
+        "1,00,000+ alumni community"
+      ],
+      "outcomes": {
+        "job_roles_targeted": ["AI Backend Engineer", "AI Frontend Engineer", "AI Fullstack Engineer", "Forward Deployed Engineer"],
+        "market_context": "163% growth in AI-related job postings between 2024 and 2025. 'AI Engineer' ranked as the fastest-growing job title in the US on LinkedIn's 2026 Jobs Report.",
+        "placement_support": "Career support, structured check-ins, and exclusive alumni network access throughout and after the program"
+      }
+    },
+    {
+      "id": "prog-dsml",
+      "name": "Modern Data Science and ML with Specialisation in AI",
+      "url": "https://www.scaler.com/data-science-course/",
+      "duration": "12 months",
+      "price_inr": 350000,
+      "price_display": "~₹3.5L",
+      "target_yoe": "0-10+ years",
+      "rating": "4.7+",
+      "ratings_count": "15K+ ratings",
+      "next_cohort": "May 2026",
+      "tagline": "From SQL to RAG pipelines, dashboards to deployed models — one curriculum built for where data roles are headed, with Specialisation in AI.",
+      "ideal_for": [
+        "SDEs, QA Engineers, Analysts & Non-Tech Graduates (0-4 YoE) — build data and AI skills that move you from execution to decision-making roles",
+        "Software Engineers Transitioning to AI/ML (1-4 YoE)",
+        "Self-Learners & Professionals Future-Proofing Against AI (2-6 YoE)",
+        "Mid-Level Professionals Seeking Growth (4-10+ YoE)"
+      ],
+      "curriculum_modules": [
+        {
+          "id": "mod-sql-ai",
+          "name": "Advanced SQL & AI for Data Professionals",
+          "type": "Core",
+          "duration": "2 months / 25 sessions",
+          "topics": ["SQL foundations & querying — schema basics, data filtering, NULLs, aggregation, GROUP BY, JOINs, subqueries, CASE statements", "Advanced SQL techniques — window functions, CTEs, date/time operations, query optimisation, indexing", "AI-powered SQL workflows — AI-assisted query generation, debugging, data exploration"],
+          "ai_angle": "AI generates first-draft queries, catches logic errors, writes insight narratives"
+        },
+        {
+          "id": "mod-excel-dashboards",
+          "name": "Excel & Dashboarding with AI Storytelling",
+          "type": "Core",
+          "duration": "1 month / 12 sessions",
+          "topics": ["Excel cleanup, formulas, pivot tables, dashboards", "Tableau for interactive visualisation", "AI-assisted insight generation"],
+          "ai_angle": "AI-assisted insight generation throughout"
+        },
+        {
+          "id": "mod-python-ds",
+          "name": "Python Foundations + AI Coding Assistants",
+          "type": "Core",
+          "duration": "1 month / 12 sessions",
+          "topics": ["Data types, control flow, functions, data structures, file handling"],
+          "ai_angle": "AI coding assistants to accelerate learning and build real data projects"
+        },
+        {
+          "id": "mod-product-analytics",
+          "name": "Data to Decisions: Product Analytics with AI",
+          "type": "Core",
+          "duration": "1 month / 12 sessions",
+          "topics": ["Metrics frameworks, event tracking, user segmentation, funnel analysis, cohort analysis, retention deep dives"],
+          "ai_angle": "AI-assisted insight generation"
+        },
+        {
+          "id": "mod-genai-analytics",
+          "name": "Generative AI for Data Analytics & Automation",
+          "type": "Core",
+          "duration": "1 month / 12 sessions",
+          "topics": ["Prompt engineering for SQL and Python", "AI-powered data cleaning and EDA", "Report generation, dashboard automation", "Building AI-assisted analytics pipelines"],
+          "ai_angle": "Full AI-first analytics workflow"
+        },
+        {
+          "id": "mod-ml",
+          "name": "Machine Learning",
+          "type": "Core",
+          "duration": "Included",
+          "topics": ["Supervised and unsupervised ML", "Logistic Regression, XGBoost, LightGBM", "SHAP explainability", "Model deployment via APIs"],
+          "ai_angle": "AI generates plain-language explanations of model decisions"
+        },
+        {
+          "id": "mod-nlp-transformers",
+          "name": "NLP & Transformers",
+          "type": "Core",
+          "duration": "Included",
+          "topics": ["Fine-tuning BERT for classification", "Custom NER for entities", "Auto-escalation pipelines", "AI-drafted responses"],
+          "ai_angle": "LLM-generated response drafts reduce average resolution time by 40% (project context)"
+        },
+        {
+          "id": "mod-genai-specialisation-ds",
+          "name": "Generative AI & AI Engineering Specialisation",
+          "type": "Specialisation",
+          "duration": "Included",
+          "topics": ["RAG pipelines", "LLM APIs", "Agentic AI workflows", "Production AI systems deployment"],
+          "ai_angle": "Build, evaluate, and deploy production AI systems as a core part of the programme"
+        },
+        {
+          "id": "mod-agentic-curriculum",
+          "name": "Agentic AI Curriculum",
+          "type": "Core methodology",
+          "topics": ["Every module runs on Generate → Validate → Improve workflow", "Use AI to accelerate, then learn to question, fix, and own the output"],
+          "ai_angle": "Core learning methodology — not a separate module"
+        }
+      ],
+      "projects": [
+        {
+          "id": "proj-swiggy-sql",
+          "name": "Swiggy Order Intelligence & Business Metrics System",
+          "stack": ["PostgreSQL", "AI SQL Assistants", "Python", "DBeaver"],
+          "ai_feature": "AI generates first-draft queries, catches logic errors, and writes insight narratives"
+        },
+        {
+          "id": "proj-zepto-ai",
+          "name": "AI-Powered Business Insights Engine for Quick Commerce",
+          "stack": ["OpenAI API", "Pandas", "Prompt Engineering", "Python"],
+          "ai_feature": "LLM APIs transform raw data into executive-ready insight summaries automatically"
+        },
+        {
+          "id": "proj-meesho-ab",
+          "name": "Meesho A/B Experimentation Platform",
+          "stack": ["SciPy", "Statsmodels", "PyMC", "Pandas"],
+          "ai_feature": "AI audits experiment designs, identifies confounds, and validates statistical rigour"
+        },
+        {
+          "id": "proj-myntra-pipeline",
+          "name": "Myntra Real-Time Sales Intelligence Pipeline on AWS",
+          "stack": ["AWS S3", "AWS Glue", "Amazon Athena", "Tableau"],
+          "ai_feature": "AI generates contextual insights from pipeline output during live sale events"
+        },
+        {
+          "id": "proj-credit-risk",
+          "name": "Credit Risk & Loan Default Prediction System",
+          "stack": ["scikit-learn", "XGBoost", "SHAP", "Flask"],
+          "ai_feature": "AI generates plain-language explanations of model decisions for compliance review"
+        },
+        {
+          "id": "proj-customer-support",
+          "name": "Customer Support Intelligence & Auto-Escalation Engine",
+          "stack": ["Hugging Face", "BERT", "spaCy", "OpenAI API"],
+          "ai_feature": "LLM-generated response drafts reduce average resolution time by 40%"
+        }
+      ],
+      "key_instructors": [
+        {
+          "id": "inst-saurabh",
+          "name": "Saurabh Kango",
+          "role": "Senior Manager, DS&A, Meesho",
+          "teaches": "Data Analytics, SQL & Business Intelligence",
+          "background": "Ex-LinkedIn Analytics Lead and Airbnb Data Scientist. Guided 100+ students in analytics and BI.",
+          "yoe": "10+",
+          "rating": 4.8
+        },
+        {
+          "id": "inst-thanish",
+          "name": "Thanish Batcha",
+          "role": "Senior Data Scientist II, Poshmark",
+          "teaches": "Machine Learning & Deep Learning",
+          "background": "Built end-to-end ML at Amazon using BERT and RoBERTa. Top finisher at MachineHack hackathons.",
+          "yoe": "8+",
+          "rating": 4.7
+        }
+      ],
+      "platform_features": [
+        "AI-assisted labs that review configurations, surface misconfigurations, and simulate real production failures",
+        "AI Mock Interviews — live avatars trained on real data science and AI engineering interview formats, case-based and reasoning-first",
+        "AI-Driven Projects — every project goes from raw data to deployed, AI-integrated system",
+        "24×7 AI Companion for validation and refinement at every stage",
+        "Lifelong learning access — curriculum updates forever at no extra cost"
+      ],
+      "outcomes": {
+        "job_roles_targeted": ["Data Scientist", "ML Engineer", "AI Engineer", "Analytics Engineer", "Data Analyst"],
+        "placement_support": "Strong placement support with alumni network and career guidance"
+      }
+    },
+    {
+      "id": "prog-devops",
+      "name": "DevOps, Cloud & AI Platform Engineering",
+      "url": "https://www.scaler.com/devops-course/",
+      "duration": "12 months",
+      "price_inr": 350000,
+      "price_display": "~₹3.5L",
+      "target_yoe": "1-10+ years",
+      "rating": "4.7+",
+      "ratings_count": "8K+ ratings",
+      "tagline": "DevOps, Cloud & AI Platform Engineering specialisation in MLOps and Cybersecurity",
+      "curriculum_modules": [
+        {
+          "id": "mod-devops-core",
+          "name": "DevOps Core",
+          "type": "Core",
+          "topics": ["CI/CD pipelines", "Docker and Kubernetes", "Infrastructure as Code", "Cloud platforms (AWS, GCP, Azure)"],
+          "ai_angle": "AI-assisted infrastructure review and deployment automation"
+        },
+        {
+          "id": "mod-mlops",
+          "name": "MLOps Specialisation",
+          "type": "Specialisation",
+          "topics": ["ML pipeline automation", "Model monitoring and drift detection", "Feature stores", "Model serving infrastructure"],
+          "ai_angle": "AI Platform Engineering for production ML systems"
+        },
+        {
+          "id": "mod-cybersecurity",
+          "name": "Cybersecurity Specialisation",
+          "type": "Specialisation",
+          "topics": ["Security fundamentals", "Cloud security", "Threat modelling"],
+          "ai_angle": "AI-assisted security analysis"
+        }
+      ],
+      "outcomes": {
+        "job_roles_targeted": ["DevOps Engineer", "Cloud Engineer", "MLOps Engineer", "Site Reliability Engineer", "AI Platform Engineer"],
+        "placement_support": "Strong placement support with alumni network"
+      }
+    },
+    {
+      "id": "prog-advanced-aiml",
+      "name": "Advanced AIML with Agentic AI",
+      "url": "https://www.scaler.com/ai-machine-learning-course/",
+      "duration": "12+ months",
+      "price_inr": 350000,
+      "price_display": "~₹3.5L",
+      "target_yoe": "2-10+ years",
+      "rating": "4.7+",
+      "tagline": "Advanced AIML with Agentic AI — for engineers who want to go deep on applied AI",
+      "curriculum_modules": [
+        {
+          "id": "mod-advanced-ml",
+          "name": "Advanced ML & Deep Learning",
+          "type": "Core",
+          "topics": ["Deep learning architectures", "Computer vision", "NLP", "Transformers", "Reinforcement learning"],
+          "ai_angle": "Production AI systems built end-to-end"
+        },
+        {
+          "id": "mod-agentic-ai",
+          "name": "Agentic AI & LLM Engineering",
+          "type": "Core",
+          "topics": ["LLM fundamentals and architecture", "RAG (Retrieval-Augmented Generation)", "Agent frameworks", "Multi-agent systems", "Evals and reliability", "Production deployment of LLM applications"],
+          "ai_angle": "Core focus — build production agentic systems not just tutorials"
+        },
+        {
+          "id": "mod-llm-applications",
+          "name": "LLM Applications in Production",
+          "type": "Core",
+          "topics": ["Building real RAG applications", "Agent orchestration", "LLM evals", "Fine-tuning", "Prompt engineering at scale"],
+          "ai_angle": "Production-first curriculum updated quarterly"
+        }
+      ],
+      "key_instructors": [
+        {
+          "id": "inst-naman",
+          "name": "Naman Bhalla",
+          "role": "Co-Founder, Scaler AI Labs",
+          "teaches": "DSA & Full Stack Development, AI",
+          "background": "Google Kickstart global rank 135. ACM ICPC rank 37. Built Scaler Topics from scratch.",
+          "yoe": "6+",
+          "rating": 4.8
+        }
+      ],
+      "outcomes": {
+        "job_roles_targeted": ["AI Engineer", "ML Engineer", "LLM Engineer", "Applied AI Researcher"],
+        "placement_support": "Strong placement support"
+      }
+    }
+  ],
+  "common_objections": [
+    {
+      "id": "obj-coursera-free",
+      "objection": "Why pay ₹3.5L when Andrew Ng has the same stuff for free on Coursera?",
+      "grounded_handle": "Coursera and Andrew Ng teach you the concepts. Scaler teaches you to ship. The difference is: (1) live mentors who are active engineers at Amazon, Google, Booking.com — not recorded professors; (2) evaluated projects on real business cases (Swiggy, Meesho, Myntra data) with AI integration built in; (3) cohort accountability and structured pacing — most Coursera learners never finish; (4) career support and placement infrastructure that free courses don't have. The curriculum moves quarterly as the market does. You can confirm specifics with us.",
+      "tags": ["coursera", "andrew ng", "free alternatives", "cost", "why pay"]
+    },
+    {
+      "id": "obj-salary-jump",
+      "objection": "What salary jump can I realistically expect? If I go from 14 LPA at TCS to 16 at another service company, the math doesn't work.",
+      "grounded_handle": "The jump from services to product is real but not instant. The program targets product company roles, not lateral service-to-service moves. Specific salary data varies by person and we'll share placement reports — but the pitch is never 'slightly higher salary at a service company'. It's the switch from services trajectory to product trajectory, which compounds differently over 5–10 years. We can walk you through the placement report numbers on a follow-up call.",
+      "tags": ["salary", "roi", "tcs", "service company", "product company"]
+    },
+    {
+      "id": "obj-llm-curriculum",
+      "objection": "I want to build real LLM applications — RAG, agents, evals. Is your program on that, or more theoretical ML?",
+      "grounded_handle": "The Academy program has a Generative AI specialisation that covers RAG, multi-agent orchestration, and production AI systems — not just theory. There's a dedicated module 'AI & Agents: From Talking to AI to Building One' covering prompt engineering, RAG, and agentic systems. The Advanced AIML program goes even deeper — that's its core focus. The curriculum is updated quarterly. These are built-in, not add-ons.",
+      "tags": ["llm", "rag", "agents", "evals", "generative ai", "curriculum depth"]
+    },
+    {
+      "id": "obj-job-guarantee",
+      "objection": "Can you guarantee I'll get a job after this?",
+      "grounded_handle": "Scaler has strong placement outcomes and an active placement team, but we don't use the word 'guarantee' — no honest program does. What we do have: a dedicated placement team, alumni network of 1,00,000+, structured interview prep including AI mock interviews, and a track record of placements at product companies. The right question is: what does the placement report show for someone with a profile like yours? We can walk through that specifically.",
+      "tags": ["job guarantee", "placement", "job after program"]
+    },
+    {
+      "id": "obj-cost-affordability",
+      "objection": "₹3.5L is more than what my family earns in a year. I don't know how people afford this.",
+      "grounded_handle": "Scaler has financing options including income share agreements and EMI plans that make the upfront cost lower. The program is designed specifically so the financial commitment doesn't have to come upfront. This is a common concern and the advisors have walked many students in similar situations through the options — worth a follow-up call to get the specifics for your situation.",
+      "tags": ["cost", "affordability", "financing", "emi", "isa", "income share"]
+    },
+    {
+      "id": "obj-entrance-test",
+      "objection": "I'm nervous about the entrance test. What if I can't clear it?",
+      "grounded_handle": "The entrance test is designed to assess learning potential, not current knowledge. It's not about how much you already know — it's about whether you can learn. There's prep material available, and the test has multiple attempts. If someone is serious about the program, the test is a solvable step, not a filter for only the already-expert. Specific test format and prep resources can be shared by the advisor.",
+      "tags": ["entrance test", "test prep", "nervous", "eligibility"]
+    },
+    {
+      "id": "obj-cohort-level",
+      "objection": "Is your cohort going to be at my level? If I'm tutoring everyone, I'm not getting value.",
+      "grounded_handle": "Scaler has different tracks within the program — the Advanced track is designed for people who already have strong DSA foundations. Senior folks from Google, Microsoft, and similar companies do enrol. The program is structured so more experienced engineers are in cohorts with others at comparable levels. Specific cohort composition for the next batch is something the advisor can walk you through.",
+      "tags": ["cohort quality", "peer level", "senior engineers", "advanced track"]
+    },
+    {
+      "id": "obj-instructor-quality",
+      "objection": "Are your instructors people who've actually shipped production AI systems, or is it academic?",
+      "grounded_handle": "The instructors are active practitioners — not academics. Examples: Anshuman Singh (Co-Founder, built Facebook Messenger), Umang Agrawal (SDE-II Amazon, 750+ sessions), Alok Singh (built Booking.com's Eligibility API serving 5M+ partners at 99.99% uptime), Saurabh Kango (ex-LinkedIn Analytics Lead, ex-Airbnb Data Scientist), Thanish Batcha (built end-to-end ML at Amazon using BERT and RoBERTa). These are people currently working at or recently from companies you'd want to join.",
+      "tags": ["instructors", "practitioners", "production experience", "academic"]
+    },
+    {
+      "id": "obj-government-job",
+      "objection": "My family wants me to take a government job. Can Scaler compete with that security?",
+      "grounded_handle": "This is genuinely a values question, not just a salary question. Government jobs offer security and stability — Scaler can't replicate that guarantee. What Scaler offers is a different kind of trajectory: higher earning potential in the medium term, more dynamic work, and a path to roles in product companies. The honest framing: if security is the #1 priority, a government job might be right. If growth trajectory and work type matter equally, this is worth exploring. The advisor can help think through the comparison honestly.",
+      "tags": ["government job", "security", "stability", "family pressure"]
+    }
+  ],
+  "platform_differentiators": [
+    {
+      "id": "diff-ai-integrated",
+      "claim": "AI built into every module — not bolted on after",
+      "detail": "Every module runs on structured AI workflows (Prompt → Review → Own for engineering; Generate → Validate → Improve for data science). 24×7 AI Companion that hints, critiques, and pair-programs. Updated quarterly."
+    },
+    {
+      "id": "diff-practitioners",
+      "claim": "Instructors and mentors are active industry practitioners, not academics",
+      "detail": "Mentors are currently employed, currently hiring. They review your work and bring judgment from inside the teams you want to join."
+    },
+    {
+      "id": "diff-lifelong",
+      "claim": "Lifelong learning access — curriculum updates forever at no extra cost",
+      "detail": "When the industry shifts, your curriculum shifts with it. You're not buying a 2026 snapshot. You're buying a living system."
+    },
+    {
+      "id": "diff-projects",
+      "claim": "Every project goes from raw data to a deployed, AI-integrated system",
+      "detail": "Projects are interview-ready and AI-integrated — something you can open, walk through, and defend including the AI features you built into it."
+    },
+    {
+      "id": "diff-community",
+      "claim": "1,00,000+ alumni network",
+      "detail": "Structured check-ins, career support, and exclusive access to 1,00,000+ Scaler alumni. The community outlasts the curriculum."
+    },
+    {
+      "id": "diff-mock-interviews",
+      "claim": "AI Mock Interviews — practice with avatars trained on real interview formats",
+      "detail": "Case-based, reasoning-first formats across DSA, LLD, system design, and data science. Walk into the room ready."
+    }
+  ],
+  "market_context": [
+    {
+      "id": "ctx-ai-jobs-growth",
+      "claim": "163% growth in AI-related job postings between 2024 and 2025 — even as overall tech hiring fell",
+      "source": "LinkedIn, 365 Data Science, 2025"
+    },
+    {
+      "id": "ctx-ai-engineer-title",
+      "claim": "'AI Engineer' ranked as the fastest-growing job title in the US on LinkedIn's 2026 Jobs Report",
+      "source": "LinkedIn 2026 Jobs Report"
+    }
+  ]
+}
