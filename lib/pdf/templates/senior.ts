@@ -272,7 +272,7 @@ export function renderSeniorTemplate(content: PDFContent): string {
   <div class="cta">
     <p class="cta-headline">${escapeHtml(content.closing_cta)}</p>
     <p class="cta-sub">45 minutes. No prep needed. Just signal your intent.</p>
-    <span class="cta-button">Take the Entrance Test &rarr;</span>
+    <a class="cta-button" href="https://wa.me/${(content.bda_phone ?? '').replace('+', '')}?text=${encodeURIComponent("Hi, I'm ready to take the Scaler entrance test!")}" target="_blank">Take the Entrance Test &rarr;</a>
   </div>
 
   <div class="footer">

@@ -78,6 +78,7 @@ export async function POST(req: NextRequest) {
     // Step 4: Faithfulness judge pass
     const sanitizedSections = await checkFaithfulness(pdfContent.sections, uniqueSnippets)
     pdfContent.sections = sanitizedSections
+    pdfContent.bda_phone = (lead.bda_phone as string) ?? ''
 
     // Step 5: Generate cover message
     const coverMessage = await generateCoverMessage(

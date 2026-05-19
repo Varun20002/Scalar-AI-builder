@@ -20,6 +20,7 @@ export interface PDFContent {
   closing_cta: string
   persona_type: PersonaType
   lead_name: string
+  bda_phone: string
 }
 
 function getPersonaTone(personaType: PersonaType): string {

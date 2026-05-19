@@ -23,6 +23,12 @@ export async function PATCH(req: NextRequest) {
 
     if (draftError || !draft) return NextResponse.json({ error: 'Draft not found' }, { status: 404 })
 
+    const { data: lead } = await supabase
+      .from('leads')
+      .select('bda_phone')
+      .eq('id', draft.lead_id)
+      .single()
+
     let sections = draft.sections_json as PDFSection[]
     let updatedCoverMessage = draft.cover_message
 
@@ -59,6 +65,7 @@ export async function PATCH(req: NextRequest) {
     const pdfContentPartial: PDFContent = {
       ...(draft as unknown as PDFContent),
       sections,
+      bda_phone: (lead?.bda_phone as string) ?? '',
     }
     const html = renderHTML(pdfContentPartial)
     const pdfBuffer = await renderPDF(html)
